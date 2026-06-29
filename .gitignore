@@ -1,0 +1,17 @@
+# Local data
+*.db
+*.sqlite
+local-data/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Mac
+.DS_Store
+
+# Claude
+.claude/settings.json
+.claude/settings.local.json

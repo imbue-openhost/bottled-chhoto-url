@@ -1,0 +1,19 @@
+[app]
+name = "links"
+version = "0.1.0"
+description = "Self-hosted URL shortener"
+
+[runtime.container]
+image = "Dockerfile"
+port = 4567
+
+[routing]
+health_check = "/api/whoami"
+public_paths = ["/"]
+
+[resources]
+memory_mb = 64
+cpu_millicores = 100
+
+[data]
+app_data = true
