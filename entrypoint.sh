@@ -1,9 +1,7 @@
 #!/bin/sh
 set -e
 
-PASSWORD_FILE="${OPENHOST_APP_DATA_DIR}/password"
-
-# Priority: env var (local testing) → secrets service → persisted generated password.
+# Priority: env var (local testing) → secrets service.
 if [ -z "${CHHOTO_PASSWORD}" ]; then
     CHHOTO_PASSWORD=$(wget -q -O- \
         --header "Authorization: Bearer ${OPENHOST_APP_TOKEN}" \
@@ -14,19 +12,9 @@ if [ -z "${CHHOTO_PASSWORD}" ]; then
 fi
 
 if [ -z "${CHHOTO_PASSWORD}" ]; then
-    if [ -f "${PASSWORD_FILE}" ]; then
-        CHHOTO_PASSWORD=$(cat "${PASSWORD_FILE}")
-    else
-        mkdir -p "${OPENHOST_APP_DATA_DIR}"
-        CHHOTO_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 24)
-        echo "${CHHOTO_PASSWORD}" > "${PASSWORD_FILE}"
-        chmod 600 "${PASSWORD_FILE}"
-        echo "============================================================"
-        echo "Generated admin password: ${CHHOTO_PASSWORD}"
-        echo "To set a permanent password, add CHHOTO_PASSWORD to:"
-        echo "  https://secrets.${OPENHOST_ZONE_DOMAIN}/"
-        echo "============================================================"
-    fi
+    echo "ERROR: CHHOTO_PASSWORD is not set."
+    echo "Add it at https://secrets.${OPENHOST_ZONE_DOMAIN}/ then reload this app."
+    exit 1
 fi
 
 export CHHOTO_PASSWORD
