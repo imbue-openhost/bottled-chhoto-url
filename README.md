@@ -1,24 +1,33 @@
-# yourls
+# openhost-chhoto-url
 
 Self-hosted URL shortener using [chhoto-url](https://github.com/SinTan1729/chhoto-url) — a Rust binary, ~6 MB image, <15 MB RAM idle.
 
-## First-time setup
+## Prerequisites
 
-Set the required env vars on your instance before deploying:
+The **secrets** app must be installed on your OpenHost zone. It manages sensitive env vars for other apps.
 
-```bash
-oh app env set CHHOTO_PASSWORD=<your-password> --instance <name>
-oh app env set CHHOTO_SITE_URL=https://yourls.<zone-domain> --instance <name>
-```
+## Setup
 
-`CHHOTO_DB_URL` is set automatically by `entrypoint.sh` from `OPENHOST_APP_DATA_DIR`.
+1. Open `https://secrets.<zone-domain>/` and add a secret:
+   - Key: `CHHOTO_PASSWORD`
+   - Value: your chosen password
 
-## Deploy
+2. Deploy this app from the OpenHost dashboard — when prompted, grant it access to `CHHOTO_PASSWORD`.
+
+`CHHOTO_SITE_URL` and `CHHOTO_DB_URL` are set automatically at startup.
+
+## Deploy / update
 
 ```bash
 git push
-oh app reload yourls --update --wait --instance <name>
-oh app logs yourls --instance <name>
+oh app reload links --update --wait --instance <name>
+oh app logs links --instance <name>
+```
+
+## Local testing
+
+```bash
+just serve   # runs on http://localhost:4567, password: local
 ```
 
 ## Upgrade chhoto-url
