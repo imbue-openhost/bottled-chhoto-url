@@ -10,7 +10,7 @@ The **secrets** app must be installed on your OpenHost zone. It manages sensitiv
 
 1. Open `https://secrets.<zone-domain>/` and add a secret:
    - Key: `CHHOTO_PASSWORD`
-   - Value: your chosen password
+   - Value: your chosen password (you will need this to login)
 
 2. Deploy this app from the OpenHost dashboard — when prompted, grant it access to `CHHOTO_PASSWORD`.
 
