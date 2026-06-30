@@ -26,7 +26,7 @@ then reload this app from the dashboard.</p>
 
     while true; do
         printf "HTTP/1.1 503 Service Unavailable\r\nContent-Type: text/html\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s" \
-            "$LEN" "$BODY" | nc -l -p 4567 2>/dev/null || true
+            "$LEN" "$BODY" | nc -l -p 4567 >/dev/null 2>&1 || true
     done
 fi
 
