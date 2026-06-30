@@ -18,6 +18,10 @@ cpu_millicores = 100
 [data]
 app_data = true
 
+[[links]]
+name = "Setup: add CHHOTO_PASSWORD to secrets"
+path = "/"
+
 [[services.v2.consumes]]
 service = "github.com/imbue-openhost/openhost/services/secrets"
 shortname = "secrets"

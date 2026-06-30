@@ -13,8 +13,13 @@ if [ -z "${CHHOTO_PASSWORD}" ]; then
 fi
 
 if [ -z "${CHHOTO_PASSWORD}" ]; then
-    echo "ERROR: CHHOTO_PASSWORD is not set."
-    echo "Add it at https://secrets.${OPENHOST_ZONE_DOMAIN}/ then reload this app."
+    echo "================================================================"
+    echo "  SETUP REQUIRED"
+    echo "  CHHOTO_PASSWORD is not set."
+    echo "  1. Go to https://secrets.${OPENHOST_ZONE_DOMAIN}/"
+    echo "  2. Add key: CHHOTO_PASSWORD"
+    echo "  3. Reload this app from the dashboard"
+    echo "================================================================"
 
     BODY="<html><head><title>Setup required</title></head><body>
 <h2>Setup required</h2>
@@ -25,7 +30,7 @@ then reload this app from the dashboard.</p>
     LEN=$(printf '%s' "$BODY" | wc -c)
 
     while true; do
-        printf "HTTP/1.1 503 Service Unavailable\r\nContent-Type: text/html\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s" \
+        printf "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s" \
             "$LEN" "$BODY" | nc -l -p 4567 >/dev/null 2>&1 || true
     done
 fi
