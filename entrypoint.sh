@@ -15,7 +15,19 @@ fi
 if [ -z "${CHHOTO_PASSWORD}" ]; then
     echo "ERROR: CHHOTO_PASSWORD is not set."
     echo "Add it at https://secrets.${OPENHOST_ZONE_DOMAIN}/ then reload this app."
-    exit 1
+
+    BODY="<html><head><title>Setup required</title></head><body>
+<h2>Setup required</h2>
+<p><strong>CHHOTO_PASSWORD</strong> is not set.</p>
+<p>Add it at <a href='https://secrets.${OPENHOST_ZONE_DOMAIN}/'>secrets.${OPENHOST_ZONE_DOMAIN}</a>,
+then reload this app from the dashboard.</p>
+</body></html>"
+    LEN=$(printf '%s' "$BODY" | wc -c)
+
+    while true; do
+        printf "HTTP/1.1 503 Service Unavailable\r\nContent-Type: text/html\r\nContent-Length: %d\r\nConnection: close\r\n\r\n%s" \
+            "$LEN" "$BODY" | nc -l -p 4567 2>/dev/null || true
+    done
 fi
 
 echo "Password found, starting chhoto-url..."
