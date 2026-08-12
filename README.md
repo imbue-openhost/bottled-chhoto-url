@@ -1,10 +1,10 @@
-# openhost-chhoto-url
+# bottled-chhoto-url
 
 Self-hosted URL shortener using [chhoto-url](https://github.com/SinTan1729/chhoto-url) — a Rust binary, ~6 MB image, <15 MB RAM idle.
 
 ## Prerequisites
 
-The **secrets** app must be installed on your OpenHost zone. It manages sensitive env vars for other apps.
+The **secrets** app must be installed on your Cloud in a Bottle zone. It manages sensitive env vars for other apps.
 
 ## Setup
 
@@ -12,7 +12,7 @@ The **secrets** app must be installed on your OpenHost zone. It manages sensitiv
    - Key: `CHHOTO_PASSWORD`
    - Value: your chosen password (you will need this to login)
 
-2. Deploy this app from the OpenHost dashboard — when prompted, grant it access to `CHHOTO_PASSWORD`.
+2. Deploy this app from the Cloud in a Bottle dashboard — when prompted, grant it access to `CHHOTO_PASSWORD`.
 
 `CHHOTO_SITE_URL` and `CHHOTO_DB_URL` are set automatically at startup.
 
